@@ -51,6 +51,11 @@ textarea {
   display: none;
   border: none;
   font-size: 20px;
+  background-color: transparent;
+}
+
+.hamburger.dark{
+  color: white !important;
 }
 
 .nav-links {
