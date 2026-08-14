@@ -799,6 +799,12 @@ textarea[aria-invalid='true'] {
 
 @media (max-width: 480px) {
 
+  main,#content {
+    padding: 1.25rem 2rem 2rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+
   .site-header,
   .section-shell {
     width: min(calc(100% - 1rem), var(--content-width));
@@ -855,10 +861,10 @@ textarea[aria-invalid='true'] {
 .timeline::before {
   content: '';
   position: absolute;
-  left: 0.55rem;
+  left: 0.45rem;
   top: 0.4rem;
   bottom: 0.4rem;
-  width: 2px;
+  width: 1px;
   background: var(--line);
 }
 

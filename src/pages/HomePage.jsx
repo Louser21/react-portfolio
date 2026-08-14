@@ -26,7 +26,7 @@ export default function HomePage() {
     <>
       <Hero />
       <section className="section-shell" id="about">
-        <SectionHeading eyebrow="About" />
+        <SectionHeading eyebrow="Know Me" title="About"/>
         <About />
       </section>
       <section className="section-shell" id="skills">

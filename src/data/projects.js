@@ -1,6 +1,7 @@
 import doodleDash from '../assets/images/doodle-dash.png'
 import intellidce from '../assets/images/idce.png'
 import aptsms from '../assets/images/aptsms.png'
+import technozion from '../assets/images/tz.jpeg'
 
 export const projects = [
   {
@@ -99,6 +100,39 @@ export const projects = [
       {
         heading: 'Delivery & tooling',
         body: 'Vite keeps the local loop instant and the production output lean. Because the CSS system is strict and the components are self-contained, new pages are assembled rather than written, which has kept maintenance effort low.',
+      },
+    ],
+  },
+  {
+    id: 'technozion-2025',
+    index: '04',
+    title: 'Technozion 2025',
+    image: technozion,
+    role: 'Full Stack Developer',
+    year: '2025',
+    readTime: '4 min read',
+    description:
+      'Built event registration, authentication, payment verification, and responsive dashboards for a campus festival workflow using the MERN stack.',
+    summary:
+      'Full-stack event platform handling registrations and payments end to end for a large campus festival.',
+    tech: ['MERN', 'Authentication', 'Dashboards'],
+    highlights: [
+      'End-to-end registration flow used by thousands of attendees',
+      'Role-based dashboards for core team, coordinators, and finance',
+      'Verification pipeline pairing manual checks with automated payments',
+    ],
+    sections: [
+      {
+        heading: 'Overview',
+        body: 'Technozion is the annual techno-management festival of NIT Warangal. The platform I built handles the complete attendee lifecycle: creating an account, registering for events, paying fees, and receiving verification before entry to festival grounds.',
+      },
+      {
+        heading: 'How it was built',
+        body: 'The stack is MERN — MongoDB for attendee and event records, Express for the REST API, React for the dashboards, and Node.js as the runtime. Authentication uses signed sessions so role-based routes can be guarded server-side as well as in the UI.',
+      },
+      {
+        heading: 'Verification workflow',
+        body: 'The trickiest part was payment verification. The dashboard gives the finance team a queue of pending transactions, each with its own audit trail, so confirmations can be actioned quickly without losing a record of who did what and when.',
       },
     ],
   },

@@ -7,7 +7,7 @@ export default function ProjectsPage({ projectsList }) {
 
   return (
     <section className="section-shell" id="projects">
-      <SectionHeading eyebrow="Projects" title="Selected work" />
+      <SectionHeading eyebrow="My Work" title="Projects" />
       <div className="project-grid">
         {list.map((project, index) => (
           <ProjectCard key={project.id} project={project} index={index} />

@@ -38,13 +38,6 @@ export default function ProjectDetailPage() {
           </p>
           <h1>{project.title}</h1>
           <p className="blog-lede">{project.summary}</p>
-          <div className="blog-meta">
-            <span className="blog-meta-item">Year · {project.year}</span>
-            <span className="blog-meta-item">{project.readTime}</span>
-            <span className="blog-meta-item">
-              {project.tech.length} technologies
-            </span>
-          </div>
         </header>
 
         <figure className="blog-cover">

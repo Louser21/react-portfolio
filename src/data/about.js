@@ -1,9 +1,9 @@
 export const about = {
   name: 'Nitin Bhandari',
   lede:
-    'Computer Science undergraduate at NIT Warangal focused on semantic HTML, simple CSS layouts, and practical full stack systems.',
+    'Computer Science student at NIT Warangal focused on semantic HTML, simple CSS layouts, and practical full stack systems.',
   bio: [
-    'My work centers on front-end structure, component reuse, and reliable user interfaces. I have experience with event platforms, compiler-oriented tooling, and academic web projects, which has trained me to think about both presentation and maintainability.',
+    'My work centers on front-end structure, component reuse, and reliable user interfaces. My education has trained me to think about both presentation and maintainability.',
     'Outside coursework, I practice competitive programming and keep refining layout systems, accessibility details, and responsive behavior across screen sizes.',
   ],
   facts: [
@@ -14,22 +14,22 @@ export const about = {
   ],
   journey: [
     {
-      period: '2024 — Present',
-      title: 'B.Tech, Computer Science',
-      place: 'National Institute of Technology, Warangal',
-      body: 'Core coursework in data structures, operating systems, and compilers, alongside full stack web development projects.',
+      period: '2024 — 2028',
+      title: 'National Institute of Technology, Warangal',
+      place: 'Bachelor of Technology in Computer Science and Engineering',
+      body: 'CGPA: 8.96',
     },
     {
-      period: '2025',
-      title: 'Doodle Dash',
-      place: 'Game Developer',
-      body: 'Built a browser arcade project focused on responsive controls, scoring, and quick replayability.',
+      period: '2024',
+      title: 'Resonance Junior College, Telangana',
+      place: 'Telangana State Board of Intermediate Education',
+      body: '95.3%',
     },
     {
-      period: '2025',
-      title: 'IntelliDCE',
-      place: 'AI / Compiler Research',
-      body: 'Prototyped a GraphSAGE-based dead-code detector that learns to remove redundant instructions from compiler IR.',
+      period: '2022',
+      title: 'St. Michael’s School, Alwal, Telangana',
+      place: 'Central Board of Secondary Education (CBSE)',
+      body: '95.5%',
     },
   ],
   focus: [

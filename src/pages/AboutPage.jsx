@@ -7,7 +7,7 @@ import { about } from '../data/about'
 function Journey() {
   return (
     <section className="section-shell">
-      <SectionHeading eyebrow="Journey" title="Education & experience" />
+      <SectionHeading eyebrow="Journey" title="Education" />
       <ol className="timeline">
         {about.journey.map((item) => (
           <li className="timeline-item" key={item.title}>
