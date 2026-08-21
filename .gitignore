@@ -12,7 +12,6 @@ dist
 dist-ssr
 *.local
 dest
-dest2
 
 # Editor directories and files
 .vscode/*
