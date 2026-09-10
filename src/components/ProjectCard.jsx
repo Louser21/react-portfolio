@@ -5,18 +5,22 @@ import TagList from './TagList'
 export default function ProjectCard({ project, index }) {
   const [detailsOpen, setDetailsOpen] = useState(false)
 
+  const cardIndex = index != null ? String(index + 1).padStart(2, '0') : ''
+  const cardImage = project.image
+  const cardTitle = project.title
+  const cardDescription = detailsOpen ? project.description : project.summary
+  const cardTech = project.techStack
+
   return (
     <article className="project-card">
-      <span className="project-index">
-        {index != null ? String(index + 1).padStart(2, '0') : ''}
-      </span>
+      <span className="project-index">{cardIndex}</span>
 
-      <img src={project.image} alt={`${project.title} preview`} className="project-image" />
+      <img src={cardImage} alt={`${cardTitle} preview`} className="project-image" />
 
-      <h3>{project.title}</h3>
-      <p>{detailsOpen ? project.description : project.summary}</p>
+      <h3>{cardTitle}</h3>
+      <p>{cardDescription}</p>
 
-      <TagList tags={project.tech} label={`Tech stack for ${project.title}`} />
+      <TagList tags={cardTech} label={`Tech stack for ${cardTitle}`} />
 
       <div className="card-actions">
         <button
@@ -27,7 +31,7 @@ export default function ProjectCard({ project, index }) {
         >
           {detailsOpen ? 'Hide details' : 'View details'}
         </button>
-        <Link className="button button-primary" to={`/projects/${project.id}`}>
+        <Link className="button button-primary" to={project.link}>
           Open
         </Link>
       </div>

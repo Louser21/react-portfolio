@@ -6,6 +6,8 @@ export default function ContactForm() {
   const [form, setForm] = useState(EMPTY_FORM)
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
+  const [serverError, setServerError] = useState('')
+  const [submitting, setSubmitting] = useState(false)
 
   const updateField = (e) => {
     const { name, value } = e.target
@@ -17,14 +19,14 @@ export default function ContactForm() {
         return next
       })
     }
+    if (serverError) setServerError('')
   }
 
   const validate = () => {
     const next = {}
     if (!form.name.trim()) next.name = 'Name is required.'
     if (!/^\S+@\S+\.\S+$/.test(form.email)) next.email = 'A valid email is required.'
-    if (form.message.trim().length < 10)
-      next.message = 'Message must be at least 10 characters.'
+    if (form.message.trim().length < 10) next.message = 'Message must be at least 10 characters.'
     return next
   }
 
@@ -33,14 +35,34 @@ export default function ContactForm() {
   const isMessageFilled = form.message.trim().length > 0
   const canSubmit = isNameFilled && isEmailValid && isMessageFilled
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const nextErrors = validate()
     if (Object.keys(nextErrors).length > 0) {
       setErrors(nextErrors)
       return
     }
-    setSubmitted(true)
+    setSubmitting(true)
+    setServerError('')
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        setServerError(data.error || 'Submission failed.')
+        setSubmitting(false)
+        return
+      }
+      setSubmitted(true)
+      setForm(EMPTY_FORM)
+    } catch (err) {
+      setServerError('Network error. Please check that the backend is running.')
+    }
+    setSubmitting(false)
   }
 
   return (
@@ -64,11 +86,11 @@ export default function ContactForm() {
               aria-describedby={errors.name ? 'name-error' : undefined}
               required
             />
-            {errors.name ? (
+            {errors.name && (
               <span id="name-error" className="field-error">
                 {errors.name}
               </span>
-            ) : null}
+            )}
           </div>
 
           <div className="field">
@@ -84,11 +106,11 @@ export default function ContactForm() {
               aria-describedby={errors.email ? 'email-error' : undefined}
               required
             />
-            {errors.email ? (
+            {errors.email && (
               <span id="email-error" className="field-error">
                 {errors.email}
               </span>
-            ) : null}
+            )}
           </div>
 
           <div className="field">
@@ -103,20 +125,24 @@ export default function ContactForm() {
               aria-describedby={errors.message ? 'message-error' : undefined}
               required
             />
-            {errors.message ? (
+            {errors.message && (
               <span id="message-error" className="field-error">
                 {errors.message}
               </span>
-            ) : null}
+            )}
           </div>
+
+          {serverError && (
+            <p className="field-error" role="alert">{serverError}</p>
+          )}
           <br />
 
           <button
             className="button button-primary"
             type="submit"
-            disabled={!canSubmit}
+            disabled={!canSubmit || submitting}
           >
-            Send Message
+            {submitting ? 'Sending...' : 'Send Message'}
           </button>
         </>
       )}

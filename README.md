@@ -1,85 +1,79 @@
-# React Portfolio
+# React Portfolio — Assignment 3: Backend Integration
+
+## Overview
+
+This is a React Portfolio website with a Node.js/Express backend. The backend serves project data and handles contact form submissions via REST APIs.
 
 ## Setup & Run
 
-- **Requirements:** Node.js 16+ and npm.
-- Install dependencies:
+### Requirements
+- Node.js 16+ and npm
 
+### Backend
 ```bash
+cd server
 npm install
+npm run dev   # or npm start
 ```
 
-- Run the dev server:
-
+### Frontend
 ```bash
+npm install
 npm run dev
 ```
 
-- Build for production:
+## API Endpoints
 
-```bash
-npm run build
+### B1 — Health Check
+```
+GET /
+```
+Response: `{ "status": "ok" }`
+
+### B2 — List Projects
+```
+GET /api/projects
+```
+Response: JSON array of project objects. Each object has: `id`, `title`, `description`, `techStack`, `image`, `link`, `summary`, `role`, `index`, `sections`, `highlights`.
+
+Sample response:
+```json
+[{"id":"doodle-dash","title":"Doodle Dash","techStack":["JavaScript","Canvas","Responsive UI"],"image":"/images/doodle-dash.png","link":"/projects/doodle-dash",...}]
 ```
 
-- Preview the production build locally:
-
-```bash
-npm run preview
+### B3 — Single Project
 ```
-
-- Lint the codebase:
-
-```bash
-npm run lint
+GET /api/projects/:id
 ```
+Valid id returns the project object. Non-existent id returns `404: { "error": "Project not found" }`.
 
-## Component tree and state-lifting decisions
+### B4 — Submit Contact Form
+```
+POST /api/contact
+Content-Type: application/json
+Body: { "name": "...", "email": "...", "message": "..." }
+```
+Valid submission returns `201: { "message": "Submission received successfully.", submission }`. Missing fields or invalid email returns `400` with field-specific error.
 
-- **Top-level layout:** `App.jsx` composes the app inside `ThemeProvider` and renders page routes. Pages live under `src/pages/` and shared UI components are under `src/components/`.
-- **Theme (global state):** Theme is managed in `ThemeProvider` (context + `localStorage`). This state is lifted to a provider because multiple components (the root app, the `Navbar`/`ThemeToggle`, and styling roots) need access to the current theme. Persisting in `localStorage` provides a remembered preference between visits.
-- **Local component state:** UI-specific state remains local to the component that owns it:
-  - `ContactForm.jsx` keeps form fields, validation errors and submitted state locally.
-  - `HomePage.jsx` uses a local `loading` boolean to show an initial loading state.
-  - `ProjectsPage.jsx` consumes project data from `src/data/projects.js` (or from a `projectsList` prop) and does not require lifting.
+### B5 — List Submissions
+```
+GET /api/contact
+```
+Returns all stored contact submissions. **No authentication required — clearly noted as an open endpoint.**
 
-These choices aim to keep the global context minimal (only truly shared concerns like theme) and keep component logic encapsulated where possible.
+### B6 — Error Handling
+- Undefined routes return `404: { "error": "Route not found" }`
+- Server errors are caught and return JSON with appropriate status code
 
-## useEffect hooks implemented (and why)
+### B7 — CORS & Environment
+- CORS enabled via `.env` `ALLOWED_ORIGIN`
+- All configuration loaded from `.env` via `dotenv`
+- `.env.example` lists all required variables
 
-- **`src/components/ThemeProvider.jsx`**
-  - Effect: persist `theme` to `localStorage` whenever it changes.
-  - Why: keeps the user's theme preference across page reloads and sessions. Wrapped in try/catch to tolerate environments where `localStorage` is unavailable.
+## Storage
+- Project data: `server/data/projects.json`
+- Contact submissions: in-memory array (resets on server restart)
 
-- **`src/App.jsx` — `ScrollToTop` helper**
-  - Effect: `useEffect(() => { window.scrollTo(0,0) }, [pathname])` that runs when the route `pathname` changes.
-  - Why: ensures the viewport resets to the top when navigating between pages (improves UX for long pages).
+## Postman / curl Commands
 
-- **`src/App.jsx` — `ResponsiveNavTracker` helper**
-  - Effect: attach a `resize` listener on mount that sets `document.documentElement.dataset.breakpoint` and removes it on cleanup.
-  - Why: centralizes a small responsive flag so CSS/JS can adapt to `mobile|tablet|desktop` breakpoints without re-querying `window.innerWidth` everywhere.
-
-- **`src/pages/HomePage.jsx`**
-  - Effect: a mount-only timer that clears `loading` after ~700ms, with cleanup to `clearTimeout`.
-  - Why: provides a short loading/entrance state to show a spinner and avoid layout jank on initial render.
-
-If you want I can expand any section with file-level links or add additional explanation for particular components.
-# React + Vite
-
-## Interactive Multi-Page Portfolio
-
-An interactive personal portfolio built with React, featuring client-side routing, state management, React Hooks, side effects, reusable components, prop drilling, theme persistence, and a controlled contact form.
-
-The application includes multiple pages, dynamic project routes, responsive design, dark/light theme switching, form validation, scroll restoration, and a custom 404 page.
-
-## Default Vite Information
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-* [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-* [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+See `curl-commands.md` for all endpoint test commands.

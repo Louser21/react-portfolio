@@ -24,3 +24,5 @@ dest2
 *.njsproj
 *.sln
 *.sw?
+.env
+.env.example
