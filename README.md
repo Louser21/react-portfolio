@@ -77,3 +77,7 @@ Returns all stored contact submissions. **No authentication required — clearly
 ## Postman / curl Commands
 
 See `curl-commands.md` for all endpoint test commands.
+
+## Video Demo
+
+[Watch the video demo here](https://drive.google.com/file/d/1I8lXZ0uEcrv_4w0pehOq733BR2O_qcyZ/view?usp=sharing)
